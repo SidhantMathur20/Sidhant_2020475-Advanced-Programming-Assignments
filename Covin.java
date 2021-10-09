@@ -123,7 +123,8 @@ public class Covin {
                 if (x==1) {
                     System.out.print("Enter PinCode: ");
                     int y=sc.nextInt();
-                    ArrayList<Integer> helper=new ArrayList<>();
+
+                    ArrayList<Integer> helper=new ArrayList<>(); // Use incase Same hospital print again and again.
                     for (int i=0;i<Bookedslots.size();i++) {
                         if (Bookedslots.get(i).picode()==y && !helper.contains(Bookedslots.get(i).hospital_id())) {
                             helper.add(Bookedslots.get(i).hospital_id());
@@ -133,30 +134,34 @@ public class Covin {
                     System.out.print("Enter hospital id: ");
                     int z=sc.nextInt();
 
+                    boolean b=false;
                     ArrayList<bookslot> tempx=new ArrayList<>();
                     for (int i=0;i<Bookedslots.size();i++) {
-                        if (Bookedslots.get(i).hospital_id()==z) {
+                        if (Bookedslots.get(i).hospital_id()==z && p.last_date_of_vaccination()<Bookedslots.get(i).day()) {
                             Bookedslots.get(i).temp_update(i);
                             tempx.add(Bookedslots.get(i));
                             System.out.printf("%d -> Day: %d Vaccine: %s Available Qty: %d\n",i,Bookedslots.get(i).day(),Bookedslots.get(i).vaccine_name(),Bookedslots.get(i).quantity());
+                            b=true;
                         }
                     }
-                    System.out.print("Choose Slot: ");
-                    int o=sc.nextInt();
-
-                    for (int i=0;i<tempx.size();i++) {
-                        if (tempx.get(i).temp()==o) {
-                           
-                            System.out.printf("%s vaccinated with %s\n",p.name(),tempx.get(i).vaccine_name());
-                            p.vaccinated_by(tempx.get(i).vaccine_name());
-                            p.last_date_of_vaccination_update(tempx.get(i).day());
-                            p.add();;
-                            tempx.get(i).sub();
+                    if (b==false) {
+                        System.out.println("No slot available");    
+                    }
+                    else {
+                        System.out.print("Choose Slot: ");
+                        int o=sc.nextInt();
+                        
+                        for (int i=0;i<tempx.size();i++) {
+                            if (tempx.get(i).temp()==o) {
+                            
+                                System.out.printf("%s vaccinated with %s\n",p.name(),tempx.get(i).vaccine_name());
+                                p.vaccinated_by(tempx.get(i).vaccine_name());
+                                p.last_date_of_vaccination_update(tempx.get(i).day());
+                                p.add(); // To Increment the variable given_number_of_doses.
+                                tempx.get(i).sub(); // To Decrement the variable quantity.
+                            }
                         }
                     }
-
-                    
-                    
 
                 }
                 else if (x==2) {
@@ -164,7 +169,7 @@ public class Covin {
                     String y=sc.next();
 
                     for (int i=0;i<Bookedslots.size();i++) {
-                        // System.out.print(Bookedslots.get(i).vaccine_name+" ");
+                        
                         if (Bookedslots.get(i).vaccine_name().equals(y)) {
                             System.out.printf("%d %s\n",Bookedslots.get(i).hospital_id(),Bookedslots.get(i).hospital_name());
                         }
@@ -176,8 +181,7 @@ public class Covin {
                     boolean b=false;
                     ArrayList<bookslot> tempx=new ArrayList<>();
                     for (int i=0;i<Bookedslots.size();i++) {
-                        // System.out.print(Bookedslots.get(i).hospital_id+" "+Bookedslots.get(i).vaccine_name);
-                        if (Bookedslots.get(i).hospital_id()==z && Bookedslots.get(i).vaccine_name().equals(y) && p.last_date_of_vaccination()<=Bookedslots.get(i).day()) {
+                        if (Bookedslots.get(i).hospital_id()==z && Bookedslots.get(i).vaccine_name().equals(y) && p.last_date_of_vaccination()<Bookedslots.get(i).day()) {
                             Bookedslots.get(i).temp_update(i);
                             tempx.add(Bookedslots.get(i));
                             System.out.printf("%d -> Day: %d Vaccine: %s Available Qty: %d\n",i,Bookedslots.get(i).day(),Bookedslots.get(i).vaccine_name(),Bookedslots.get(i).quantity());
@@ -196,6 +200,7 @@ public class Covin {
                                 
                                 System.out.printf("%s vaccinated with %s\n",p.name(),tempx.get(i).vaccine_name());
                                 p.vaccinated_by(tempx.get(i).vaccine_name());
+                                p.last_date_of_vaccination_update(tempx.get(i).day());
                                 p.add();
                                 tempx.get(i).sub();;
                             }
@@ -223,13 +228,12 @@ public class Covin {
                 System.out.print("Enter Patient ID: ");
                 int id=sc.nextInt();
                 int b=0;
-                boolean bool=false;
                 citizen c=null;
                 int gap=0;
                 for (int i=0;i<Reg_citizens.size();i++) {
                     if (Reg_citizens.get(i).id()==id) {
                         int req_num_of_doses=0;
-                        bool=true;
+                        
                         c=Reg_citizens.get(i);
                         if (Reg_citizens.get(i).given_number_of_doses()==0) {
                             System.out.println("Citizen Registered");
@@ -239,7 +243,7 @@ public class Covin {
                             for (int j=0;j<Added_vaccines.size();j++) {
                                 if (Added_vaccines.get(j).name()==Reg_citizens.get(i).vaccinated_by()) {
                                     gap=Added_vaccines.get(j).gap();
-                                    req_num_of_doses=Added_vaccines.get(i).doses();
+                                    req_num_of_doses=Added_vaccines.get(j).doses();
                                 }
                             }
                             
@@ -278,6 +282,10 @@ public class Covin {
                 System.out.println("Wrong Code Entered");
             }
             System.out.printf("\n-------------------------------\n");
+            System.out.println(Added_vaccines);
+            System.out.println(Reg_citizens);
+            System.out.println(Reg_hospitals);
+            System.out.println(Bookedslots);
             System.out.println("{Menu Options}");
         }
     }  
