@@ -222,15 +222,18 @@ public class Covin {
             else if (code==7) {
                 System.out.print("Enter Patient ID: ");
                 int id=sc.nextInt();
-                int b=2;
+                int b=0;
+                boolean bool=false;
                 citizen c=null;
                 int gap=0;
                 for (int i=0;i<Reg_citizens.size();i++) {
                     if (Reg_citizens.get(i).id()==id) {
                         int req_num_of_doses=0;
+                        bool=true;
                         c=Reg_citizens.get(i);
                         if (Reg_citizens.get(i).given_number_of_doses()==0) {
                             System.out.println("Citizen Registered");
+                            b=1;
                         }
                         else {
                             for (int j=0;j<Added_vaccines.size();j++) {
@@ -242,26 +245,31 @@ public class Covin {
                             
                             if (Reg_citizens.get(i).given_number_of_doses()>=req_num_of_doses) {
                                 System.out.println("FULLY VACCINATED");
-                                b=1;
+                                b=2;
                                 break;
                             }
                             else {
                                 System.out.println("PARTIALLY VACCINATED");
+                                b=3;
                                 break;
                             }
                         }
                         
                     }
-                    else {
-                        System.out.println("Citizen Not-Registered");
-                    }
+                    
                     
                 }
-                System.out.printf("Vaccine Given: %s\n", c.vaccinated_by());
-                System.out.printf("Number of Doses Given: %d\n", c.given_number_of_doses());
-                if (b==2) {
-                    System.out.printf("Next Dose due date: %d\n", c.last_date_of_vaccination()+gap);
+                if (b==0) {
+                    System.out.println("Citizen Not-Registered");
                 }
+                else if (b==2 || b==3) {
+                    System.out.printf("Vaccine Given: %s\n", c.vaccinated_by());
+                    System.out.printf("Number of Doses Given: %d\n", c.given_number_of_doses());
+                    if (b==3) {
+                        System.out.printf("Next Dose due date: %d\n", c.last_date_of_vaccination()+gap);
+                    }
+                }
+                
             }
             else if (code==8) {
                 break;
