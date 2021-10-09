@@ -31,16 +31,15 @@ public class Covin {
                 System.out.print("Number of Doses: ");
                 int y=sc.nextInt();
 
+                int z=0;
                 if (y==1) {}
                 else {
                     System.out.print("Gap between Doses: ");
-                    int z=sc.nextInt();
-
-                    System.out.printf("Vaccine Name: %s, Number of Doses: %d, Gap Between Doses: %d\n\n",x,y,z);
-
-                    vaccine v=new vaccine(x,y,z);
-                    Added_vaccines.add(v);
+                    z=sc.nextInt();
                 }
+                System.out.printf("Vaccine Name: %s, Number of Doses: %d, Gap Between Doses: %d\n\n",x,y,z);
+                vaccine v=new vaccine(x,y,z);
+                Added_vaccines.add(v);
                 
             }
             else if (code==2) {
