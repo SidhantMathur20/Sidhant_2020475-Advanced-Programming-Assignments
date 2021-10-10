@@ -451,6 +451,11 @@ public class Covin {
             else if (code==7) {
                 System.out.print("Enter Patient ID: ");
                 String id=sc.next();
+                // Error Manager 
+                if (id.length()!=12) { // Basic length of the ID.
+                    System.out.println("Wrong Input");
+                    continue;
+                }
                 int b=0;
                 citizen c=null;
                 int gap=0;
