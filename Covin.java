@@ -2,40 +2,6 @@ import java.util.*;
 
 public class Covin {
     
-    // public static int Error_Handler(String s) {
-
-    //         Scanner sup=new Scanner(System.in);
-    //         int right_input;
-    //         while (true) {
-    //             System.out.println("Wrong Input");
-    //             System.out.print(s);
-    //             right_input=sup.nextInt();
-    //             if (right_input>0) {
-    //                 break;
-    //             }
-    //         }
-    //         return right_input;
-    // }
-    // public static int Error_Handler_for_pincode(String s,ArrayList<hospital> Reg_hospitals) {
-
-    //     Scanner sup=new Scanner(System.in);
-    //     int right_input;
-    //     while (true) {
-    //         System.out.println("Wrong Input");
-    //         System.out.print(s);
-    //         right_input=sup.nextInt();
-    //         boolean bil=false;
-    //         for (int i=0;i<Reg_hospitals.size();i++) {
-    //             if (Reg_hospitals.get(i).id()==right_input) {
-    //                 bil=true;
-    //             }
-    //         }
-    //         if (right_input>99999 && right_input<1000000) {
-    //             break;
-    //         }
-    //     }
-    //     return right_input;
-    // }
     public static void main(String[] args) {
         int H_id_generator=100000;
         ArrayList<vaccine> Added_vaccines=new ArrayList<>();
@@ -57,10 +23,10 @@ public class Covin {
 
         while (true) {
 
-            System.out.println(Added_vaccines);
-            System.out.println(Reg_citizens);
-            System.out.println(Reg_hospitals);
-            System.out.println(Bookedslots);
+            // System.out.println(Added_vaccines);
+            // System.out.println(Reg_citizens);
+            // System.out.println(Reg_hospitals);
+            // System.out.println(Bookedslots);
 
             System.out.printf("\n-------------------------------\n");
             System.out.println("{Menu Options}");
@@ -89,20 +55,13 @@ public class Covin {
                 System.out.print("Number of Doses: ");
                 int y=sc.nextInt();
 
-                // if (y<1) {
-                //     y=Error_Handler("Number of Doses: ");
-                // }
-
-
 
                 int z=0;
                 if (y==1) {}
                 else {
                     System.out.print("Gap between Doses: ");
                     z=sc.nextInt();
-                    // if (z<1) {
-                    //     z=Error_Handler("Gap between Doses: ");
-                    // }
+                    
                 }
                 System.out.printf("Vaccine Name: %s, Number of Doses: %d, Gap Between Doses: %d\n\n",x,y,z);
                 vaccine v=new vaccine(x,y,z);
@@ -152,9 +111,7 @@ public class Covin {
                 System.out.print("Age: ");
                 int y=sc.nextInt();
 
-                // if (y<1) {
-                //     y=Error_Handler("Age: ");
-                // }
+                
 
                 System.out.print("Unique ID: ");
                 String z=sc.next();
@@ -204,33 +161,21 @@ public class Covin {
                 if (id<100000 || id>999999 || bil==false) {
                     System.out.println("Wrong Input");
                     continue;
-                    // Error_Handler_for_pincode("Enter Hospital ID: ",Reg_hospitals);
+                    
                 }
                 // Error Manager
 
-                // for (int hos=0;hos<Reg_hospitals.size();hos++) {
-                //     if (Reg_hospitals.get(hos).id()==id) {
-                //         thehos=Reg_hospitals.get(hos);
-                //         break;
-                //     }
-                // }
+                
                 
                 System.out.print("Enter number of Slots to be added: ");
                 int t=sc.nextInt();
 
-                // if (t<1) {
-                //     t=Error_Handler("Enter number of Slots to be added: ");
-                // }
+                
 
                 while (t-->0) {
                     System.out.print("Enter Day Number: ");
                     int x=sc.nextInt();
 
-                    
-
-                    // if (x<1) {
-                    //     x=Error_Handler("Enter Day Number: ");
-                    // }
 
                     System.out.print("Enter Quantity: ");
                     int y=sc.nextInt();
@@ -271,7 +216,7 @@ public class Covin {
 
                     Bookedslots.add(new bookslot(Added_vaccines.get(z).name(),thehos.id(),x,y,thehos.pincode(),thehos.name()));
                     System.out.printf("Slot added by Hospital %d for Day: %d, Available Quantity: %d of Vaccine %s\n",thehos.id(),x,y,Added_vaccines.get(z).name());
-                    // System.out.println(Bookedslots);
+                    
                 }
 
             }
@@ -335,13 +280,13 @@ public class Covin {
 
 
                     boolean b=false;
-                    // ArrayList<Integer> helper2=new ArrayList<>();
+                    ArrayList<Integer> helper2=new ArrayList<>();
                     ArrayList<bookslot> tempx=new ArrayList<>();
                     for (int i=0;i<Bookedslots.size();i++) {
                         if (Bookedslots.get(i).hospital_id()==z && p.last_date_of_vaccination()<Bookedslots.get(i).day()) {
                             Bookedslots.get(i).temp_update(i);
                             tempx.add(Bookedslots.get(i));
-                            // helper2.add(i);
+                            helper2.add(i);
                             System.out.printf("%d -> Day: %d Vaccine: %s Available Qty: %d\n",i,Bookedslots.get(i).day(),Bookedslots.get(i).vaccine_name(),Bookedslots.get(i).quantity());
                             b=true;
                         }
@@ -353,14 +298,14 @@ public class Covin {
                         System.out.print("Choose Slot: ");
                         int o=sc.nextInt();
 
-                        // if (!helper2.contains(o)) {
-                        //     System.out.println("Wrong Input");
-                        //     continue;
-                        // }
+                        if (!helper2.contains(o)) {
+                            System.out.println("Wrong Input");
+                            continue;
+                        }
                         boolean help=false;
                         for (int i=0;i<tempx.size();i++) {
                             if (tempx.get(i).temp()==o) {
-                                if (tempx.get(i).quantity()>0) {
+                                if (tempx.get(i).quantity()>0 && (p.vaccinated_by()==null || tempx.get(i).vaccine_name().equals(p.vaccinated_by()))) {
                                     System.out.printf("%s vaccinated with %s\n",p.name(),tempx.get(i).vaccine_name());
                                     p.vaccinated_by(tempx.get(i).vaccine_name());
                                     p.last_date_of_vaccination_update(tempx.get(i).day());
@@ -368,16 +313,12 @@ public class Covin {
                                     tempx.get(i).sub(); // To Decrement the variable quantity.
                                 }
                                 else {
-                                    System.out.println("Hospital is out of Stock");
+                                    System.out.println("Either Hospital is out of Stock \nor You have earlier taken a different Vaccine");
                                     help=true;
                                     break;
                                 }
                             }
-                            else {
-                                System.out.println("Wrong code entered");
-                                help=true;
-                                break;
-                            }
+                            
                             
                         }
                         if (help==true) {
@@ -392,16 +333,19 @@ public class Covin {
 
                     // Error Manager
                     boolean extra_help=false;
+
+                    ArrayList<Integer> helper=new ArrayList<>();
                     for (int i=0;i<Bookedslots.size();i++) {
                         
-                        if (Bookedslots.get(i).vaccine_name().equals(y)) {
+                        if (Bookedslots.get(i).vaccine_name().equals(y)&& !helper.contains(Bookedslots.get(i).hospital_id())) {
                             System.out.printf("%d %s\n",Bookedslots.get(i).hospital_id(),Bookedslots.get(i).hospital_name());
+                            helper.add(i);
                             extra_help=true;
                         }
 
                     }
                     if (extra_help==false) {
-                        System.out.print("The Vaccine is not Registered or you have enter the wrong name");
+                        System.out.println("The Vaccine is not Registered or you have enter the wrong name or No slot is created yet");
                         continue;
                     }
                     // Error Manager
@@ -420,16 +364,18 @@ public class Covin {
                     if (z<100000 || z>999999 || bil==false) {
                         System.out.println("Wrong Hopital ID");
                         continue;
-                        // Error_Handler_for_pincode("Enter Hospital ID: ",Reg_hospitals);
+                        
                     }
                     // Error Manager
 
                     boolean b=false;
+                    ArrayList<Integer> helper2=new ArrayList<>();
                     ArrayList<bookslot> tempx=new ArrayList<>();
                     for (int i=0;i<Bookedslots.size();i++) {
                         if (Bookedslots.get(i).hospital_id()==z && Bookedslots.get(i).vaccine_name().equals(y) && p.last_date_of_vaccination()<Bookedslots.get(i).day()) {
                             Bookedslots.get(i).temp_update(i);
                             tempx.add(Bookedslots.get(i));
+                            helper2.add(i);
                             System.out.printf("%d -> Day: %d Vaccine: %s Available Qty: %d\n",i,Bookedslots.get(i).day(),Bookedslots.get(i).vaccine_name(),Bookedslots.get(i).quantity());
                             b=true;
                         }
@@ -441,10 +387,15 @@ public class Covin {
                         System.out.print("Choose Slot: ");
                         int o=sc.nextInt();
 
+                        if (!helper2.contains(o)) {
+                            System.out.println("Wrong Input");
+                            continue;
+                        }
+
                         boolean help=false;
                         for (int i=0;i<tempx.size();i++) {
                             if (tempx.get(i).temp()==o) {
-                                if (tempx.get(i).quantity()>0) {
+                                if (tempx.get(i).quantity()>0 && (p.vaccinated_by()==null || tempx.get(i).vaccine_name().equals(p.vaccinated_by()))) {
                                     System.out.printf("%s vaccinated with %s\n",p.name(),tempx.get(i).vaccine_name());
                                     p.vaccinated_by(tempx.get(i).vaccine_name());
                                     p.last_date_of_vaccination_update(tempx.get(i).day());
@@ -452,15 +403,10 @@ public class Covin {
                                     tempx.get(i).sub(); // To Decrement the variable quantity.
                                 }
                                 else {
-                                    System.out.println("Hospital is out of Stock");
+                                    System.out.println("Either Hospital is out of Stock \nor You have earlier taken a different Vaccine");
                                     help=true;
                                     break;
                                 }
-                            }
-                            else {
-                                System.out.println("Wrong code entered");
-                                help=true;
-                                break;
                             }
                             
                         }
