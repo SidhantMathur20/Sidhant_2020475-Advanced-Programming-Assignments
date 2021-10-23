@@ -18,6 +18,8 @@ abstract public class Floors {
     public String get_type() {
         return this.type;
     }
+
+    public void action(Player player) {}
 }
 
 class empty_floor extends Floors {
@@ -26,6 +28,7 @@ class empty_floor extends Floors {
         super(1, "Empty_floor");
         
     }
+    @Override
     public void action(Player player) {
         player.set_points(player.get_points()+this.get_gain_or_lose());
     }
@@ -38,8 +41,9 @@ class normal_snake extends Floors {
         super(-2, "Snake_floor");
         
     }
+    @Override
     public void action(Player player) {
-        // System.out.printf("Player position Floor - %d\n",player.get_position());
+        
         player.set_points(player.get_points()+this.get_gain_or_lose());
 
         System.out.printf("Total points: %d\n",player.get_points());
@@ -55,8 +59,9 @@ class king_cobra extends Floors {
         super(-4, "King cobra_floor");
         
     }
+    @Override
     public void action(Player player) {
-        // System.out.printf("Player position Floor - %d\n",player.get_position());
+        
         player.set_points(player.get_points()+this.get_gain_or_lose());
 
         System.out.printf("Total points: %d\n",player.get_points());
@@ -73,8 +78,9 @@ class ladder extends Floors {
         super(2, "Ladder_floor");
         
     }
+    @Override
     public void action(Player player) {
-        // System.out.printf("Player position Floor - %d\n",player.get_position());
+       
         player.set_points(player.get_points()+this.get_gain_or_lose());
 
         System.out.printf("Total points: %d\n",player.get_points());
@@ -91,8 +97,9 @@ class elevator extends Floors {
         super(4, "Elevator_floor");
     
     }
+    @Override
     public void action(Player player) {
-        // System.out.printf("Player position Floor - %d\n",player.get_position());
+        
         player.set_points(player.get_points()+this.get_gain_or_lose());
 
         System.out.printf("Total points: %d\n",player.get_points());
