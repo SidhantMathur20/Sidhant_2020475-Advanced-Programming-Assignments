@@ -9,6 +9,17 @@ public class Game {
         String name=sc.nextLine();
 
         Player player=new Player(name);
+
+
+        empty_floor empty=new empty_floor();
+
+        ladder lad=new ladder();
+        elevator elv=new elevator();
+
+        normal_snake snake=new normal_snake();
+        king_cobra cobra=new king_cobra();
+        
+
         System.out.println("The game setup is ready");
         while (true) {
             Boolean bool=false;
@@ -42,43 +53,47 @@ public class Game {
             
             if (player.get_position()==0 || player.get_position()==1 || player.get_position()==3 || player.get_position()==4 || player.get_position()==6 || player.get_position()==7 || player.get_position()==9 || player.get_position()==10 || player.get_position()==12) {
                 System.out.printf("Player position Floor - %d\n",player.get_position());
-                empty_floor empty=new empty_floor();
-                System.out.printf("%s has reached an %s\n",player.get_name(),empty.type);
+                
+                System.out.printf("%s has reached an %s\n",player.get_name(),empty.get_type());
                 empty.action(player);
             }
             else if (player.get_position()==2) {
-                elevator elv=new elevator();
+                
                 System.out.printf("Player position Floor - %d\n",player.get_position());
-                System.out.printf("%s has reached an %s\n",player.get_name(),elv.type);
-                // System.out.printf("Total points: %d\n",player.get_points());
+                System.out.printf("%s has reached an %s\n",player.get_name(),elv.get_type());
+                
                 elv.action(player);
+
                 System.out.printf("Player position Floor - %d\n",player.get_position());
                 System.out.printf("%s has reached an %s\n",player.get_name(),"Empty_floor");
             }
             else if (player.get_position()==5) {
-                normal_snake snake=new normal_snake();
+                
                 System.out.printf("Player position Floor - %d\n",player.get_position());
-                System.out.printf("%s has reached an %s\n",player.get_name(),snake.type);
-                // System.out.printf("Total points: %d\n",player.get_points());
+                System.out.printf("%s has reached an %s\n",player.get_name(),snake.get_type());
+                
                 snake.action(player);
+
                 System.out.printf("Player position Floor - %d\n",player.get_position());
                 System.out.printf("%s has reached an %s\n",player.get_name(),"Empty_floor");
             }
             else if (player.get_position()==8) {
-                ladder lad=new ladder();
+                
                 System.out.printf("Player position Floor - %d\n",player.get_position());
-                System.out.printf("%s has reached an %s\n",player.get_name(),lad.type);
-                // System.out.printf("Total points: %d\n",player.get_points());
+                System.out.printf("%s has reached an %s\n",player.get_name(),lad.get_type());
+                
                 lad.action(player);
+
                 System.out.printf("Player position Floor - %d\n",player.get_position());
                 System.out.printf("%s has reached an %s\n",player.get_name(),"Empty_floor");
             }
             else if (player.get_position()==11) {
-                king_cobra cobra=new king_cobra();
+                
                 System.out.printf("Player position Floor - %d\n",player.get_position());
-                System.out.printf("%s has reached an %s\n",player.get_name(),cobra.type);
-                // System.out.printf("Total points: %d\n",player.get_points());
+                System.out.printf("%s has reached an %s\n",player.get_name(),cobra.get_type());
+                
                 cobra.action(player);
+
                 System.out.printf("Player position Floor - %d\n",player.get_position());
                 System.out.printf("%s has reached an %s\n",player.get_name(),"Empty_floor");
             }
@@ -92,12 +107,16 @@ public class Game {
             }
             else {
                 System.out.println("Cannot move");
-                empty_floor empty=new empty_floor();
                 empty.action(player);
                 player.set_position(12);
             }
             System.out.printf("Total points: %d\n",player.get_points());
         }
     }
+
+    public static void print_before() {}
+
+    public static void print_after() {}
+
 }
 

@@ -2,8 +2,10 @@ import java.util.*;
 
 abstract public class Floors {
     private int gain_or_lose;
-    Floors(int gain_or_lose) {
+    private String type;
+    Floors(int gain_or_lose, String type) {
         this.gain_or_lose=gain_or_lose;
+        this.type=type;
     }
 
     public void set_gain_or_lose(int gain_or_lose) {
@@ -12,28 +14,29 @@ abstract public class Floors {
     public int get_gain_or_lose() {
         return this.gain_or_lose;
     }
+
+    public String get_type() {
+        return this.type;
+    }
 }
 
 class empty_floor extends Floors {
-    String type;
+    
     empty_floor() {
-        super(1);
-        this.type="Empty_floor";
+        super(1, "Empty_floor");
+        
     }
     public void action(Player player) {
         player.set_points(player.get_points()+this.get_gain_or_lose());
     }
 
-    public String get_type() {
-        return this.type;
-    }
 
 }
 class normal_snake extends Floors {
-    String type;
+    
     normal_snake() {
-        super(-2);
-        this.type="Snake_floor";
+        super(-2, "Snake_floor");
+        
     }
     public void action(Player player) {
         // System.out.printf("Player position Floor - %d\n",player.get_position());
@@ -45,15 +48,12 @@ class normal_snake extends Floors {
         player.set_points(player.get_points()+1);
     }
 
-    public String get_type() {
-        return this.type;
-    }
 }
 class king_cobra extends Floors {
-    String type;
+    
     king_cobra() {
-        super(-4);
-        this.type="King cobra_floor";
+        super(-4, "King cobra_floor");
+        
     }
     public void action(Player player) {
         // System.out.printf("Player position Floor - %d\n",player.get_position());
@@ -65,15 +65,13 @@ class king_cobra extends Floors {
         player.set_points(player.get_points()+1);
     }
 
-    public String get_type() {
-        return this.type;
-    }
+    
 }
 class ladder extends Floors {
-    String type;
+    
     ladder() {
-        super(2);
-        this.type="Ladder_floor";
+        super(2, "Ladder_floor");
+        
     }
     public void action(Player player) {
         // System.out.printf("Player position Floor - %d\n",player.get_position());
@@ -85,15 +83,13 @@ class ladder extends Floors {
         player.set_points(player.get_points()+1);
     }
 
-    public String get_type() {
-        return this.type;
-    }
+ 
 }
 class elevator extends Floors {
-    String type;
+    
     elevator() {
-        super(4);
-        this.type="Elevator_floor";
+        super(4, "Elevator_floor");
+    
     }
     public void action(Player player) {
         // System.out.printf("Player position Floor - %d\n",player.get_position());
@@ -105,8 +101,6 @@ class elevator extends Floors {
         player.set_points(player.get_points()+1);
     }
 
-    public String get_type() {
-        return this.type;
-    }
+
 }
 
