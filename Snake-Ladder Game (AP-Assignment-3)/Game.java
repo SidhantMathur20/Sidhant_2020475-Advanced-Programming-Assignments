@@ -162,7 +162,7 @@ public class Game {
             }
             else {
                 System.out.println("Cannot move");
-                empty.action(player);
+                // empty.action(player);
                 player.set_position(12);
             }
             System.out.printf("Total points: %d\n",player.get_points());
